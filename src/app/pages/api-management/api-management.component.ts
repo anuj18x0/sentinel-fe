@@ -20,7 +20,7 @@ export class ApiManagementComponent implements OnInit {
   formData: CreateApiRequest = {
     name: '',
     url: '',
-    checkInterval: 60,
+    checkInterval: 10,
   };
 
   constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) {}
@@ -45,7 +45,7 @@ export class ApiManagementComponent implements OnInit {
   }
 
   openAddForm() {
-    this.formData = { name: '', url: '', checkInterval: 60 };
+    this.formData = { name: '', url: '', checkInterval: 10 };
     this.editingId = null;
     this.showForm = true;
   }
