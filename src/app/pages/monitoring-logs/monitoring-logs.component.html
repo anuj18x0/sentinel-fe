@@ -1,0 +1,73 @@
+<div class="page animate-in">
+    <div class="page-header">
+        <div>
+            <h1>Monitoring Logs</h1>
+            <p class="subtitle">API health check history and performance data</p>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card filters-bar">
+        <div class="filters-row">
+            <div class="filter-group">
+                <label>API</label>
+                <select class="input" [(ngModel)]="filters.apiId" (change)="applyFilter()">
+                    <option [ngValue]="null">All APIs</option>
+                    <option *ngFor="let api of apis" [ngValue]="api.id">{{ api.name }}</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="toggle-label">
+                    <input type="checkbox" [(ngModel)]="filters.anomalyOnly" (change)="applyFilter()" />
+                    <span class="toggle-text">Anomalies only</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logs Table -->
+    <div class="card">
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>API</th>
+                        <th>Status</th>
+                        <th>Latency</th>
+                        <th>Anomaly</th>
+                        <th>Error</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let log of logs" [class.anomaly-row]="log.isAnomaly">
+                        <td class="time-cell">{{ formatTime(log.timestamp) }}</td>
+                        <td class="api-cell">{{ getApiName(log) }}</td>
+                        <td><span [class]="getStatusBadge(log.statusCode)">{{ log.statusCode || 'ERR' }}</span></td>
+                        <td class="latency-cell" [class.high-latency]="log.responseTime > 1000">
+                            {{ formatLatency(log.responseTime) }}
+                        </td>
+                        <td>
+                            <span *ngIf="log.isAnomaly" class="badge badge-critical">⚠ Anomaly</span>
+                            <span *ngIf="!log.isAnomaly" class="text-muted">—</span>
+                        </td>
+                        <td class="error-cell">{{ log.errorMessage || '—' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="logs.length === 0 && !loading" class="empty-state">
+                <p>No logs found</p>
+                <span>Monitoring data will appear once the worker starts checking APIs</span>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" *ngIf="logs.length > 0">
+            <button class="btn btn-ghost btn-sm" (click)="prevPage()" [disabled]="filters.page <= 1">← Previous</button>
+            <span class="page-info">Page {{ filters.page }}</span>
+            <button class="btn btn-ghost btn-sm" (click)="nextPage()" [disabled]="logs.length < filters.pageSize">Next
+                →</button>
+        </div>
+    </div>
+</div>

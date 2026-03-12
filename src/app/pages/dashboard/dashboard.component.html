@@ -1,0 +1,153 @@
+<div class="dashboard animate-in">
+    <div class="page-header">
+        <h1>Dashboard</h1>
+        <p class="subtitle">Real-time API monitoring overview</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid" *ngIf="stats">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #6366f1, #818cf8);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M4 11a9 9 0 0 1 9 9" />
+                    <path d="M4 4a16 16 0 0 1 16 16" />
+                    <circle cx="5" cy="19" r="1" />
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{ stats.totalApis }}</span>
+                <span class="stat-label">Monitored APIs</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #06d6a0);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{ stats.healthyApis }}</span>
+                <span class="stat-label">Healthy</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #f97316);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{ stats.unhealthyApis }}</span>
+                <span class="stat-label">Unhealthy</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{ stats.anomaliesDetectedToday }}</span>
+                <span class="stat-label">Anomalies Today</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{ stats.averageLatency | number:'1.0-0' }}ms</span>
+                <span class="stat-label">Avg Latency</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #a78bfa, #c084fc);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{ stats.activeIncidents }}</span>
+                <span class="stat-label">Active Incidents</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading skeleton -->
+    <div class="stats-grid" *ngIf="loading">
+        <div class="stat-card skeleton-card" *ngFor="let i of [1,2,3,4,5,6]">
+            <div class="skeleton" style="width: 48px; height: 48px; border-radius: 12px;"></div>
+            <div>
+                <div class="skeleton" style="width: 60px; height: 24px; margin-bottom: 4px;"></div>
+                <div class="skeleton" style="width: 100px; height: 14px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Latency Chart -->
+        <div class="card chart-card">
+            <h3>Latency Overview</h3>
+            <p class="card-subtitle">Last 6 hours · All APIs</p>
+            <div class="chart-container">
+                <canvas id="latencyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent Incidents -->
+        <div class="card incidents-card">
+            <div class="card-header-row">
+                <h3>Active Incidents</h3>
+                <a routerLink="/insights" class="btn btn-ghost btn-sm">View all</a>
+            </div>
+            <div class="incidents-list" *ngIf="incidents.length > 0">
+                <div class="incident-item" *ngFor="let incident of incidents">
+                    <div class="incident-severity">
+                        <span [class]="getSeverityClass(incident.severity)">{{ incident.severity }}</span>
+                    </div>
+                    <div class="incident-info">
+                        <span class="incident-api">{{ incident.api?.name || 'API #' + incident.apiId }}</span>
+                        <span class="incident-type">{{ incident.incidentType }}</span>
+                    </div>
+                    <span class="incident-time">{{ formatTime(incident.timestamp) }}</span>
+                </div>
+            </div>
+            <div class="empty-state" *ngIf="incidents.length === 0 && !loading">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    style="color: var(--accent-success)">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                <p>No active incidents</p>
+                <span>All systems operating normally</span>
+            </div>
+        </div>
+
+        <!-- API Status List -->
+        <div class="card api-status-card">
+            <h3>API Status</h3>
+            <div class="api-list" *ngIf="apis.length > 0">
+                <div class="api-item" *ngFor="let api of apis">
+                    <div class="api-info">
+                        <span [class]="getStatusClass(api.status)">{{ api.status }}</span>
+                        <span class="api-name">{{ api.name }}</span>
+                    </div>
+                    <span class="api-latency" *ngIf="api.lastResponseTime">{{ api.lastResponseTime | number:'1.0-0'
+                        }}ms</span>
+                    <span class="api-latency muted" *ngIf="!api.lastResponseTime">—</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

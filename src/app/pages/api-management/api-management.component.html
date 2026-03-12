@@ -1,0 +1,87 @@
+<div class="page animate-in">
+    <div class="page-header">
+        <div>
+            <h1>API Management</h1>
+            <p class="subtitle">Register and manage monitored APIs</p>
+        </div>
+        <button class="btn btn-primary" (click)="openAddForm()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Add API
+        </button>
+    </div>
+
+    <!-- Add/Edit Form -->
+    <div class="card form-card" *ngIf="showForm">
+        <h3>{{ editingId ? 'Edit API' : 'Register New API' }}</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Name</label>
+                <input class="input" [(ngModel)]="formData.name" placeholder="e.g. Payment API" />
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <input class="input" [(ngModel)]="formData.url" placeholder="https://api.example.com/health" />
+            </div>
+            <div class="form-group">
+                <label>Check Interval (seconds)</label>
+                <input class="input" type="number" [(ngModel)]="formData.checkInterval" min="10" />
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-ghost" (click)="closeForm()">Cancel</button>
+            <button class="btn btn-primary" (click)="saveApi()">{{ editingId ? 'Update' : 'Register' }}</button>
+        </div>
+    </div>
+
+    <!-- API Table -->
+    <div class="card">
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Name</th>
+                        <th>URL</th>
+                        <th>Interval</th>
+                        <th>Last Latency</th>
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let api of apis" class="animate-in">
+                        <td><span [class]="getStatusClass(api.status)">{{ api.status }}</span></td>
+                        <td class="api-name-cell">{{ api.name }}</td>
+                        <td class="url-cell">{{ api.url }}</td>
+                        <td>{{ api.checkInterval }}s</td>
+                        <td>
+                            <span *ngIf="api.lastResponseTime">{{ api.lastResponseTime | number:'1.0-0' }}ms</span>
+                            <span *ngIf="!api.lastResponseTime" class="text-muted">—</span>
+                        </td>
+                        <td>
+                            <label class="toggle" (click)="toggleActive(api)">
+                                <div class="toggle-track" [class.active]="api.isActive">
+                                    <div class="toggle-thumb"></div>
+                                </div>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-ghost btn-sm" (click)="openEditForm(api)">Edit</button>
+                                <button class="btn btn-danger btn-sm" (click)="deleteApi(api.id)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="empty-state" *ngIf="apis.length === 0 && !loading">
+                <p>No APIs registered yet</p>
+                <span>Click "Add API" to start monitoring</span>
+            </div>
+        </div>
+    </div>
+</div>

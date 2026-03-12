@@ -1,0 +1,95 @@
+<div class="page animate-in">
+    <div class="page-header">
+        <h1>AI Insights</h1>
+        <p class="subtitle">Anomaly detection, failure predictions, and incident analysis</p>
+    </div>
+
+    <div class="insights-grid">
+        <!-- Failure Predictions -->
+        <div class="card predictions-card">
+            <h3>🔮 Failure Predictions</h3>
+            <p class="card-subtitle">AI-estimated failure probability for each API</p>
+            <div class="predictions-list" *ngIf="predictions.length > 0">
+                <div class="prediction-item" *ngFor="let pred of predictions">
+                    <div class="prediction-header">
+                        <span class="prediction-name">{{ pred.apiName }}</span>
+                        <span [class]="getRiskClass(pred.riskLevel)">{{ pred.riskLevel }}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" [style.width]="getProbabilityWidth(pred.failureProbability)"
+                            [style.background]="getProbabilityColor(pred.failureProbability)"></div>
+                    </div>
+                    <span class="probability-label">{{ (pred.failureProbability * 100) | number:'1.1-1' }}% failure
+                        probability</span>
+                </div>
+            </div>
+            <div class="empty-state" *ngIf="predictions.length === 0 && !loading">
+                <p>No prediction data available yet</p>
+            </div>
+        </div>
+
+        <!-- Anomalies Timeline -->
+        <div class="card anomalies-card">
+            <h3>⚡ Recent Anomalies</h3>
+            <p class="card-subtitle">Last 48 hours</p>
+            <div class="anomalies-list" *ngIf="anomalies.length > 0">
+                <div class="anomaly-item" *ngFor="let anomaly of anomalies">
+                    <div class="anomaly-dot"></div>
+                    <div class="anomaly-info">
+                        <div class="anomaly-header">
+                            <span class="anomaly-api">{{ anomaly.apiName }}</span>
+                            <span class="badge badge-critical">{{ anomaly.statusCode || 'ERR' }}</span>
+                        </div>
+                        <div class="anomaly-details">
+                            <span>Latency: <strong>{{ anomaly.responseTime | number:'1.0-0' }}ms</strong></span>
+                            <span class="anomaly-time">{{ formatTime(anomaly.timestamp) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state" *ngIf="anomalies.length === 0 && !loading">
+                <p>No anomalies detected</p>
+                <span>All APIs operating within normal parameters</span>
+            </div>
+        </div>
+
+        <!-- Incidents -->
+        <div class="card incidents-full-card">
+            <h3>📋 Incidents</h3>
+            <p class="card-subtitle">AI-generated incident explanations</p>
+            <div class="incidents-list" *ngIf="incidents.length > 0">
+                <div class="incident-card" *ngFor="let incident of incidents" [class.resolved]="incident.isResolved">
+                    <div class="incident-header">
+                        <div class="incident-meta">
+                            <span [class]="getSeverityClass(incident.severity)">{{ incident.severity }}</span>
+                            <span class="incident-type">{{ incident.incidentType }}</span>
+                        </div>
+                        <span class="incident-time">{{ formatTime(incident.timestamp) }}</span>
+                    </div>
+                    <div class="incident-api-name">{{ incident.api?.name || 'API #' + incident.apiId }}</div>
+                    <div class="ai-summary" *ngIf="incident.aiSummary">
+                        <div class="ai-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                            AI Analysis
+                        </div>
+                        <p>{{ incident.aiSummary }}</p>
+                    </div>
+                    <div class="incident-actions" *ngIf="!incident.isResolved">
+                        <button class="btn btn-ghost btn-sm" (click)="resolveIncident(incident.id)">✓ Mark
+                            Resolved</button>
+                    </div>
+                    <div class="resolved-badge" *ngIf="incident.isResolved">
+                        <span class="badge badge-healthy">✓ Resolved</span>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state" *ngIf="incidents.length === 0 && !loading">
+                <p>No incidents recorded</p>
+            </div>
+        </div>
+    </div>
+</div>

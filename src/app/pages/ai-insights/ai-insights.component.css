@@ -1,0 +1,248 @@
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.card-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.incidents-full-card {
+  grid-column: 1 / -1;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Predictions */
+.predictions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prediction-item {
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-glass);
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.prediction-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.probability-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Anomalies */
+.anomalies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.anomaly-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-glass);
+}
+
+.anomaly-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-danger);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.anomaly-info {
+  flex: 1;
+}
+
+.anomaly-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.anomaly-api {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.anomaly-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.anomaly-details strong {
+  color: var(--accent-warning);
+}
+
+.anomaly-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Incidents */
+.incidents-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 16px;
+}
+
+.incident-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+}
+
+.incident-card:hover {
+  border-color: var(--border-glow);
+}
+
+.incident-card.resolved {
+  opacity: 0.6;
+}
+
+.incident-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.incident-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.incident-type {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.incident-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.incident-api-name {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.ai-summary {
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  margin-bottom: 10px;
+}
+
+.ai-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-primary-light);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ai-summary p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.incident-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.resolved-badge {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-state p {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.empty-state span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+}
