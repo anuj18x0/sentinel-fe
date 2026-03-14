@@ -7,8 +7,8 @@
     <!-- Stats Cards -->
     <div class="stats-grid" *ngIf="stats">
         <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #6366f1, #818cf8);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <div class="stat-icon" style="border: 1px solid var(--border-color);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 11a9 9 0 0 1 9 9" />
                     <path d="M4 4a16 16 0 0 1 16 16" />
                     <circle cx="5" cy="19" r="1" />
@@ -20,33 +20,33 @@
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #06d6a0);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <div class="stat-icon" style="color: #059669; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
             </div>
             <div class="stat-info">
-                <span class="stat-value">{{ stats.healthyApis }}</span>
+                <span class="stat-value" style="color: #059669">{{ stats.healthyApis }}</span>
                 <span class="stat-label">Healthy</span>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #f97316);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <div class="stat-icon" style="color: #dc2626; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="15" y1="9" x2="9" y2="15" />
                     <line x1="9" y1="9" x2="15" y2="15" />
                 </svg>
             </div>
             <div class="stat-info">
-                <span class="stat-value">{{ stats.unhealthyApis }}</span>
+                <span class="stat-value" style="color: #dc2626">{{ stats.unhealthyApis }}</span>
                 <span class="stat-label">Unhealthy</span>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <div class="stat-icon" style="color: #d97706; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path
                         d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
                     <line x1="12" y1="9" x2="12" y2="13" />
@@ -54,13 +54,13 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <span class="stat-value">{{ stats.anomaliesDetectedToday }}</span>
+                <span class="stat-value" style="color: #d97706">{{ stats.anomaliesDetectedToday }}</span>
                 <span class="stat-label">Anomalies Today</span>
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <div class="stat-icon" style="border: 1px solid var(--border-color);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
                 </svg>
@@ -71,8 +71,8 @@
             </div>
         </div>
         <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #a78bfa, #c084fc);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <div class="stat-icon" style="border: 1px solid var(--border-color);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                 </svg>

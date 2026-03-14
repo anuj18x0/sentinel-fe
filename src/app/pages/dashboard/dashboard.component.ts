@@ -105,12 +105,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
             interaction: { intersect: false, mode: 'index' },
             plugins: {
               legend: {
-                labels: { color: '#94a3b8', font: { family: 'Inter', size: 11 }, boxWidth: 12 },
+                labels: { color: '#000000', font: { family: "'JetBrains Mono', monospace", size: 10 }, boxWidth: 12 },
               },
             },
             scales: {
-              x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { size: 10 }, maxTicksLimit: 10 } },
-              y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { size: 10 } }, title: { display: true, text: 'ms', color: '#64748b' } },
+              x: { grid: { color: '#f0f0f0' }, ticks: { color: '#888', font: { family: "'JetBrains Mono', monospace", size: 9 }, maxTicksLimit: 8 } },
+              y: { grid: { color: '#f0f0f0' }, ticks: { color: '#888', font: { family: "'JetBrains Mono', monospace", size: 9 } }, title: { display: true, text: 'ms', color: '#888', font: { family: "'JetBrains Mono', monospace", size: 10 } } },
             },
           },
         });

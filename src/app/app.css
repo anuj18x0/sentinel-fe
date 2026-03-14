@@ -7,8 +7,7 @@
 .sidebar {
   width: 260px;
   min-height: 100vh;
-  background: rgba(10, 14, 26, 0.95);
-  backdrop-filter: blur(20px);
+  background: #ffffff;
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -35,13 +34,13 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: var(--gradient-primary);
-  border-radius: 10px;
+  background: #000000;
+  border-radius: 0;
   padding: 6px;
 }
 
 .logo-icon svg {
-  filter: brightness(2);
+  color: #ffffff;
 }
 
 .logo-text {
@@ -60,10 +59,7 @@
 .logo-ai {
   font-size: 1.25rem;
   font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
 }
 
 /* ── Nav ──────────────────────────────────────────────── */
@@ -80,13 +76,15 @@
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   transition: all var(--transition-fast);
   text-decoration: none;
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .nav-item:hover {
@@ -95,20 +93,12 @@
 }
 
 .nav-item.active {
-  background: rgba(99, 102, 241, 0.12);
-  color: var(--accent-primary-light);
+  background: #000000;
+  color: #ffffff;
 }
 
-.nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 20px;
-  background: var(--gradient-primary);
-  border-radius: 0 4px 4px 0;
+.nav-item.active svg {
+  color: #ffffff;
 }
 
 .nav-item svg {
@@ -131,8 +121,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .status-dot {
@@ -140,8 +132,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--accent-success);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
-  animation: pulse-glow 2s infinite;
+  box-shadow: 0 0 6px var(--accent-success);
 }
 
 /* ── Main ─────────────────────────────────────────────── */
